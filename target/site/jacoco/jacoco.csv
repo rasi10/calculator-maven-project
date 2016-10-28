@@ -1,3 +1,4 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
 calculator-maven-project,default,Calculator,7,24,1,1,2,7,1,5,0,5
-calculator-maven-project,default,Main,38,0,0,0,8,0,2,0,2,0
+calculator-maven-project,default,CalculatorGUI,370,0,8,0,68,0,11,0,7,0
+calculator-maven-project,default,Main,8,0,0,0,3,0,2,0,2,0

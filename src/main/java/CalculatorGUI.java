@@ -65,6 +65,11 @@ public class CalculatorGUI implements ActionListener{
 		frmCalculator.setVisible(true);
 	}
 	
+	/**
+	 * Addind components to frame.
+	 * @param none
+	 * @return none
+	 */
 	public void addComponentsToFrame(){
 		frmCalculator.getContentPane().add(lblFirstNumber);
 		frmCalculator.getContentPane().add(lblSecondNumber);
@@ -83,6 +88,13 @@ public class CalculatorGUI implements ActionListener{
 		btnDivide.addActionListener(this);
 	}
 
+	
+	/**
+	 *
+	 * get value from text field
+	 * 
+	 * @return firstNUmber - Number that is written in the textfield
+	 **/
 	public double getValueFromTextField1(){		
 		double firstNumber = 0.0;						
 		firstNumber = Double.valueOf(txfFirstNumber.getText());		
