@@ -8,26 +8,34 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 
-public class CalculatorGUI {
+public class CalculatorGUI implements ActionListener{
 	private JFrame frmCalculator;
 	private JTextField txfFirstNumber;
 	private JTextField txfSecondNumber;
 	private Calculator calculator = new Calculator();
-	JLabel lblResult = new JLabel("Result:");
+	private JLabel lblResult = new JLabel("Result:");
 	
+	private JLabel lblFirstNumber = new JLabel("first number");
+	private JLabel lblSecondNumber = new JLabel("second number:");
+	private JButton btnAdd = new JButton("+");
+	private JButton btnSubtract = new JButton("-");
+	private JButton btnMultiply = new JButton("*");
+	private JButton btnDivide = new JButton("/");
 
 	
 	/**
 	 * Create the application.
 	 */
 	public CalculatorGUI() {
-		initialize();
+		createAndShowGUI();
+		addComponentsToFrame();
+		addActionListeners();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void createAndShowGUI() {
 		frmCalculator = new JFrame();
 		frmCalculator.getContentPane().setBackground(Color.CYAN);
 		frmCalculator.setTitle("Calculator");
@@ -43,81 +51,73 @@ public class CalculatorGUI {
 		txfSecondNumber = new JTextField();
 		txfSecondNumber.setBounds(116, 58, 108, 20);
 		frmCalculator.getContentPane().add(txfSecondNumber);
-		txfSecondNumber.setColumns(10);
+		txfSecondNumber.setColumns(10);	
 		
-		JLabel lblFirstNumber = new JLabel("first number");
 		lblFirstNumber.setBounds(10, 30, 96, 14);
-		frmCalculator.getContentPane().add(lblFirstNumber);
-		
-		JLabel lblSecondNumber = new JLabel("second number:");
 		lblSecondNumber.setBounds(10, 61, 96, 14);
-		frmCalculator.getContentPane().add(lblSecondNumber);
-		
-		
 		lblResult.setBounds(10, 86, 223, 14);
-		frmCalculator.getContentPane().add(lblResult);
-		
-		JButton btnAdd = new JButton("+");
-		btnAdd.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				double firstNumber = 0.0;
-				double secondNumber = 0.0;
-				double result = 0.0;				
-				firstNumber = Double.valueOf(txfFirstNumber.getText());
-				secondNumber = Double.valueOf(txfSecondNumber.getText());				
-				result = calculator.add(firstNumber, secondNumber);				
-				lblResult.setText("Result: "+result);
-				
-			}
-		});
+
 		btnAdd.setBounds(10, 139, 47, 23);
-		frmCalculator.getContentPane().add(btnAdd);
-		
-		JButton btnSubtract = new JButton("-");
-		btnSubtract.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				double firstNumber = 0.0;
-				double secondNumber = 0.0;
-				double result = 0.0;				
-				firstNumber = Double.valueOf(txfFirstNumber.getText());
-				secondNumber = Double.valueOf(txfSecondNumber.getText());				
-				result = calculator.subtract(firstNumber, secondNumber);				
-				lblResult.setText("Result: "+result);				
-			}
-		});
-		btnSubtract.setBounds(67, 139, 48, 23);
-		frmCalculator.getContentPane().add(btnSubtract);
-		
-		JButton btnMultiply = new JButton("*");
-		btnMultiply.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				double firstNumber = 0.0;
-				double secondNumber = 0.0;
-				double result = 0.0;				
-				firstNumber = Double.valueOf(txfFirstNumber.getText());
-				secondNumber = Double.valueOf(txfSecondNumber.getText());				
-				result = calculator.multiply(firstNumber, secondNumber);				
-				lblResult.setText("Result: "+result);				
-			}
-		});
-		btnMultiply.setBounds(125, 139, 47, 23);
-		frmCalculator.getContentPane().add(btnMultiply);
-		
-		JButton btnDivide = new JButton("/");
-		btnDivide.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				double firstNumber = 0.0;
-				double secondNumber = 0.0;
-				double result = 0.0;				
-				firstNumber = Double.valueOf(txfFirstNumber.getText());
-				secondNumber = Double.valueOf(txfSecondNumber.getText());				
-				result = calculator.divide(firstNumber, secondNumber);				
-				lblResult.setText("Result: "+result);				
-			}
-		});
-		btnDivide.setBounds(182, 139, 37, 23);
-		frmCalculator.getContentPane().add(btnDivide);
+		btnSubtract.setBounds(67, 139, 48, 23);	
+		btnMultiply.setBounds(125, 139, 47, 23);	
+		btnDivide.setBounds(182, 139, 37, 23);	
 		
 		frmCalculator.setVisible(true);
 	}
+	
+	public void addComponentsToFrame(){
+		frmCalculator.getContentPane().add(lblFirstNumber);
+		frmCalculator.getContentPane().add(lblSecondNumber);
+		frmCalculator.getContentPane().add(lblResult);
+		frmCalculator.getContentPane().add(btnAdd);
+		frmCalculator.getContentPane().add(btnSubtract);
+		frmCalculator.getContentPane().add(btnMultiply);
+		frmCalculator.getContentPane().add(btnDivide);
+	}
+		
+	
+	public void addActionListeners(){
+		btnAdd.addActionListener(this);
+		btnSubtract.addActionListener(this);
+		btnMultiply.addActionListener(this);
+		btnDivide.addActionListener(this);
+	}
+
+	public double getValueFromTextField1(){		
+		double firstNumber = 0.0;						
+		firstNumber = Double.valueOf(txfFirstNumber.getText());		
+		return firstNumber;		
+	}
+	
+	public double getValueFromTextField2(){		
+		double secondNumber = 0.0;						
+		secondNumber = Double.valueOf(txfSecondNumber.getText());		
+		return secondNumber;		
+	}	
+	
+	
+	
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnAdd){
+			double result = calculator.add(getValueFromTextField1(), getValueFromTextField2());
+			lblResult.setText("Result: "+result);
+		}		
+		
+		if (e.getSource() == btnSubtract){
+			double result = calculator.subtract(getValueFromTextField1(), getValueFromTextField2());
+			lblResult.setText("Result: "+result);
+		}
+		
+		if (e.getSource() == btnMultiply){
+			double result = calculator.multiply(getValueFromTextField1(), getValueFromTextField2());
+			lblResult.setText("Result: "+result);
+		}
+		
+		if (e.getSource() == btnDivide){
+			double result = calculator.divide(getValueFromTextField1(), getValueFromTextField2());
+			lblResult.setText("Result: "+result);		
+		}		
+		
+	}	
+	
 }
